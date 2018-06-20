@@ -16,8 +16,8 @@ class Participant(models.Model):
 
 class Participation(models.Model):
     name = models.CharField(max_length=200)
-    wbw_list = models.ForeignKey(Wbw_list)
-    participant = models.ForeignKey(Participant)
+    wbw_list = models.ForeignKey(Wbw_list, on_delete=models.CASCADE)
+    participant = models.ForeignKey(Participant, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -25,7 +25,7 @@ class Participation(models.Model):
 
 class Bystander(models.Model):
     name = models.CharField(max_length=200)
-    participant = models.ForeignKey(Participant)
+    participant = models.ForeignKey(Participant, on_delete=models.CASCADE)
 
 
 class Meal(models.Model):
@@ -34,7 +34,7 @@ class Meal(models.Model):
     completed = models.BooleanField(default=False)
     description = models.CharField(max_length=200, blank=True)
 
-    wbw_list = models.ForeignKey(Wbw_list, null=True)
+    wbw_list = models.ForeignKey(Wbw_list, null=True, on_delete=models.CASCADE)
     participants = models.ManyToManyField(Participant, blank=True)
     bystanders = models.ManyToManyField(Bystander, blank=True)
-    payer = models.ForeignKey(Participant, null=True, blank=True, related_name='paymeal')
+    payer = models.ForeignKey(Participant, null=True, blank=True, related_name='paymeal', on_delete=models.SET_NULL)

@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
                 ('name', models.CharField(max_length=200)),
-                ('participant', models.ForeignKey(to='meals.Participant')),
+                ('participant', models.ForeignKey(to='meals.Participant', on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='participation',
             name='wbw_list',
-            field=models.ForeignKey(to='meals.Wbw_list'),
+            field=models.ForeignKey(to='meals.Wbw_list', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='participant',
@@ -69,16 +69,16 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='meal',
             name='payer',
-            field=models.ForeignKey(related_name='paymeal', blank=True, to='meals.Participant', null=True),
+            field=models.ForeignKey(related_name='paymeal', blank=True, to='meals.Participant', null=True, on_delete=models.SET_NULL),
         ),
         migrations.AddField(
             model_name='meal',
             name='wbw_list',
-            field=models.ForeignKey(null=True, to='meals.Wbw_list'),
+            field=models.ForeignKey(null=True, to='meals.Wbw_list', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='bystander',
             name='participant',
-            field=models.ForeignKey(to='meals.Participant'),
+            field=models.ForeignKey(to='meals.Participant', on_delete=models.CASCADE),
         ),
     ]

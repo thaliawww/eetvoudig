@@ -20,13 +20,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'i(7-ajz6+3)ba!3zv1%hxs)@9jq=4o8i2ihr=+w98*(hndu7@6'
+SECRET_KEY = os.environ.get('DJANGO_SECRET', 'OVERRIDE_ME')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = []
+if 'DJANGO_HOSTS' in os.environ:
+    ALLOWED_HOSTS = os.environ.get('DJANGO_HOSTS').split(',')
 
+WBW_UID = os.environ.get('DJANGO_WBW_UID')
+WBW_EMAIL = os.environ.get('DJANGO_WBW_EMAIL')
+WBW_PASSWORD = os.environ.get('DJANGO_WBW_PASSWORD')
+WBW_LIST_ID = os.environ.get('DJANGO_WBW_LIST_ID')
 
 # Application definition
 
@@ -79,7 +85,7 @@ WSGI_APPLICATION = 'eetvoudig.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db', 'db.sqlite3'),
     }
 }
 
@@ -97,10 +103,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-WBW_EMAIL = 'replacemewithanemail'
-WBW_PASSWORD = 'replacemewithapassword'
-
 WARNING_EXTERNALS = False
 
 BOOTSTRAP3 = {
@@ -111,14 +113,10 @@ BOOTSTRAP3 = {
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/eetfestijn/static'
 
 try:
     from .local_settings import *
 except ImportError:
     pass
 
-if DEBUG:
-    INSTALLED_APPS.append('debug_toolbar')
-    INTERNAL_IPS = ('127.0.0.1',)
-    MIDDLEWARE_CLASSES.append(
-        'debug_toolbar.middleware.DebugToolbarMiddleware')
