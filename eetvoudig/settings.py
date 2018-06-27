@@ -112,7 +112,7 @@ BOOTSTRAP3 = {
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/eetfestijn/static'
+STATIC_ROOT = '/eetvoudig/static'
 
 try:
     from .local_settings import *

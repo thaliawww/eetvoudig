@@ -2,7 +2,7 @@
 
 set -e
 
-chown -R www-data:www-data /eetfestijn/
+chown -R www-data:www-data /eetvoudig/
 chown -R www-data:www-data /usr/src/app
 
 cd /usr/src/app/
