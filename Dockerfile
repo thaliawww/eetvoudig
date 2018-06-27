@@ -51,7 +51,3 @@ RUN echo 'nl_NL.UTF-8 UTF-8' > /etc/locale.gen && \
 RUN pip install --no-cache-dir \
     -r requirements.txt \
     -r production-requirements.txt
-
-RUN if [ "$install_dev_requirements" -eq 1 ]; then \
-    pip install --no-cache-dir -r dev-requirements.txt; \
-    fi
