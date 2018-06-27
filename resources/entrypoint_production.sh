@@ -2,13 +2,13 @@
 
 set -e
 
+python /usr/src/app/manage.py migrate --no-input
+python /usr/src/app/manage.py collectstatic --no-input
+
 chown -R www-data:www-data /eetvoudig/
 chown -R www-data:www-data /usr/src/app
 
 cd /usr/src/app/
-
-python /usr/src/app/manage.py migrate --no-input
-python /usr/src/app/manage.py collectstatic --no-input
 
 >&2 echo "Running site with uwsgi"
 uwsgi --chdir /usr/src/app \
